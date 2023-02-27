@@ -87,11 +87,11 @@ const SearchBooks = () => {
 
   return (
     <>
-      <div fluid className='text-light bg-dark pt-5'>
+      <div className='text-light bg-dark pt-5'> {/* Deleted “fluid” attribute. Was it needed? */}
         <Container>
           <h1>Search for Books!</h1>
           <Form onSubmit={handleFormSubmit}>
-            <Form.Row>
+            <Row>
               <Col xs={12} md={8}>
                 <Form.Control
                   name='searchInput'
@@ -107,7 +107,7 @@ const SearchBooks = () => {
                   Submit Search
                 </Button>
               </Col>
-            </Form.Row>
+            </Row>
           </Form>
         </Container>
       </div>
@@ -119,9 +119,9 @@ const SearchBooks = () => {
             : 'Search for a book to begin'}
         </h2>
         <Row>
-          {searchedBooks.map((book) => {
+          {searchedBooks.map((book, index) => {
             return (
-              <Col md="4">
+              <Col key={index} md="4">
                 <Card key={book.bookId} border='dark'>
                   {book.image ? (
                     <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' />
