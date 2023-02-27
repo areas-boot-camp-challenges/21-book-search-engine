@@ -1,21 +1,30 @@
-const express = require('express');
-const path = require('path');
-const db = require('./config/connection');
-const routes = require('./routes');
+// Dependencies.
+const express = require("express")
+const path = require("path")
 
-const app = express();
-const PORT = process.env.PORT || 3001;
+// Database.
+const db = require("./config/connection")
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// Routes.
+const routes = require("./routes")
 
-// if we're in production, serve client/build as static assets
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
+// Server.
+const app = express()
+const PORT = process.env.PORT || 3001
+
+// Middleware.
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+
+// If production, serve `client/build` as static assets.
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")))
 }
 
-app.use(routes);
+// Set up the routes.
+app.use(routes)
 
-db.once('open', () => {
-  app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
-});
+// Start the server.
+db.once("open", () => {
+  app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`))
+})
