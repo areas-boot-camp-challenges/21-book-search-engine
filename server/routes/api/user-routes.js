@@ -1,27 +1,35 @@
-const router = require('express').Router();
+// Dependencies.
+const userRouter = require("express").Router()
+
+// Middleware.
+const {
+  authMiddleware
+} = require("../../utils/auth")
+
+// Controllers.
 const {
   createUser,
   getSingleUser,
-  login,
   saveBook,
   deleteBook,
-} = require('../../controllers/user-controller');
+  login,
+} = require("../../controllers/user-controller")
 
-// import middleware
-const { authMiddleware } = require('../../utils/auth');
+// User routes.
+userRouter
+  .post("/", createUser)
 
-// put authMiddleware anywhere we need to send a token for verification of user
-router.route('/')
-  .post(createUser)
-  .put(authMiddleware, saveBook);
+userRouter
+  .get("/me", authMiddleware, getSingleUser)
 
-router.route('/login')
-  .post(login);
+userRouter
+  .post("/login", login)
 
-router.route('/me')
-  .get(authMiddleware, getSingleUser);
+// Books routes.
+userRouter
+  .put("/", authMiddleware, saveBook)
 
-router.route('/books/:bookId')
-  .delete(authMiddleware, deleteBook);
+userRouter
+  .delete("/books/:bookId", authMiddleware, deleteBook)
 
-module.exports = router;
+module.exports = userRouter
