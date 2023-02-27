@@ -10,9 +10,9 @@ const {
 const {
   createUser,
   getSingleUser,
+  login,
   saveBook,
   deleteBook,
-  login,
 } = require("../../controllers/user-controller")
 
 // User routes.
