@@ -5,10 +5,10 @@ const { User } = require("../models")
 const resolvers = {
 	Query: {
 		users: async () => {
-			return await User.find().populate("savedBooks")
+			return await User.find()
 		},
 		user: async (parent, { username }) => {
-			return await User.findOne({ username }).populate("savedBooks")
+			return await User.findOne({ username })
 		},
 	},
 }
