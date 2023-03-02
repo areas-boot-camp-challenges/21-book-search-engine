@@ -36,10 +36,11 @@ const typeDefs = gql`
 			password: String!
 		): Auth
 		signIn(
-			email: String!
+			username: String!
 			password: String!
 		): Auth
 		saveBook(
+			username: String!
 			bookId: String!
 			title: String!
 			authors: [String]
@@ -48,6 +49,7 @@ const typeDefs = gql`
 			link: String
 		): User
 		deleteBook(
+			username: String!
 			bookId: String!
 		): User
 	}

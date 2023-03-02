@@ -4,17 +4,16 @@ const mongoose = require("mongoose")
 // Set up a connection to the database.
 const db = "googlebooks"
 mongoose.connect(process.env.MONGODB_URI || `mongodb://localhost/${db}`,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  },
+	{
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useCreateIndex: true,
+		useFindAndModify: false,
+	},
 	(err) => {
-		// Log any database connection errors.
+		// Log any database connection errors. Otherwise, log a success message.
 		if (err) {
 			console.error(err)
-		// Otherwise, log a success message.
 		} else {
 			console.log(`Connected to the ${db} database! ✅`)
 		}
