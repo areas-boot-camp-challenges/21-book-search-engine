@@ -1,12 +1,16 @@
 // Dependendenies.
 import React, { useState, useEffect } from "react"
-import { Container, Col, Form, Button, Card, Row } from "react-bootstrap"
-
-// API and authentication.
-import { searchGoogleBooks } from "../utils/API"
-import { saveBookIds, getSavedBookIds } from "../utils/localStorage"
 import { useMutation } from "@apollo/client"
+import { Button, Card, Col, Container, Form, Row } from "react-bootstrap"
+
+// APIs.
+import { searchGoogleBooks } from "../utils/API"
 import { SAVE_BOOK } from "../gql/mutations"
+
+// Local storage.
+import { saveBookIds, getSavedBookIds } from "../utils/localStorage"
+
+// Auth.
 import Auth from "../utils/auth"
 
 // Component.
@@ -32,11 +36,11 @@ const SearchBooks = () => {
     if (!searchInput) {
       return false
     }
-    // Else, search.
+    // Search.
     try {
       // Call the API.
       const response = await searchGoogleBooks(searchInput)
-      // If there’s no response, throw an error.
+      // If the response is not ok, throw an error.
       if (!response.ok) {
         throw new Error("Sorry, something went wrong.")
       }
@@ -64,13 +68,11 @@ const SearchBooks = () => {
   const handleSaveBook = async (bookId) => {
     // Find the book in `searchedBooks` state by the matching ID.
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId)
-    console.log(bookToSave) // **********
     // Get the user’s token.
     const token =
       Auth.loggedIn()
         ? Auth.getToken()
         : null
-    console.log(token) // **********
     // If there’s no token, return false.
     if (!token) {
       return false
@@ -84,7 +86,6 @@ const SearchBooks = () => {
         },
       })
       setSavedBookIds([...savedBookIds, bookToSave.bookId])
-      console.log(savedBookIds) // **********
     } catch (err) {
       // If there’s an error, log it.
       console.error(err)
