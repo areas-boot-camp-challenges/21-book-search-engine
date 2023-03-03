@@ -16,13 +16,13 @@ const resolvers = {
 		},
 	},
 	Mutation: {
-		addUser: async (parent, { username, email, password }) => {
+		signUp: async (parent, { username, email, password }) => {
 			const user = await User.create({ username, email, password })
 			const token = signToken(user)
 			return { user, token }
 		},
-		signIn: async (parent, { username, password }) => {
-			const user = await User.findOne({ username })
+		signIn: async (parent, { email, password }) => {
+			const user = await User.findOne({ email })
 			if (!user) {
 				throw new AuthenticationError("User not found.")
 			}
